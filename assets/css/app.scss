@@ -1,0 +1,6 @@
+$background: blue;
+
+body{
+    background: $background url("animal.jpg");
+    transform: translateX(20px);
+}
