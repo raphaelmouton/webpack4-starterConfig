@@ -1,5 +1,4 @@
-import {log} from './log'
-import jquery from 'jquery'
+import { log } from './log'
 
-let a = "salut les gens";
-log(a);
+let a = 'salut les gens'
+log(a)
