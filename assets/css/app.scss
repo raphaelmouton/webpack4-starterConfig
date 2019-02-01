@@ -1,6 +1,10 @@
-$background: #ffebe6;
+@import "variables";
 
-body{
+body {
     background: $background url("animal.jpg");
-    transform: translateX(20px);
+
+    .container {
+        background-color: $background-container;
+        height: 100vh;
+    }
 }

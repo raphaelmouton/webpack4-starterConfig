@@ -1,12 +1,13 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const dev = process.env.NODE_ENV === 'dev';
 
 let cssLoaders = [
-    {loader: 'css-loader', options: {importLoaders: 1}},
+    { loader: 'css-loader', options: { importLoaders: 1 } },
 ];
 
 if (!dev) {
@@ -32,7 +33,6 @@ let config = {
     output: {
         path: path.resolve('./dist'),
         filename: '[name].js',
-        publicPath: '../dist/'
     },
     devtool: dev ? 'cheap-module-eval-source-map' : false,
     optimization: {
@@ -59,6 +59,10 @@ let config = {
                     dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     ...cssLoaders
                 ]
+            },
+            {
+                test: /\.ejs$/,
+                use: ['ejs-loader']
             },
             {
                 test: /\.scss$/,
@@ -95,6 +99,9 @@ let config = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
         }),
+        // new HtmlWebpackPlugin({
+        //     template: '/template/index.ejs'
+        // })
     ]
 };
 
@@ -109,4 +116,15 @@ if (!dev) {
         dry: false
     }))
 }
+
+/** CONFIG GLOB FOR EJS FILE */
+const glob = require('glob')
+const files = glob.sync(process.cwd() + '/templates/*.ejs')
+files.forEach(file => {
+    config.plugins.push(new HtmlWebpackPlugin({
+        filename: path.basename(file).replace('.ejs', '.html'),
+        template: file
+    }))
+})
+
 module.exports = config;

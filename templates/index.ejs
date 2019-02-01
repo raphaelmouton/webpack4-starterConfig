@@ -1,0 +1,13 @@
+<%= require('./partials/header.ejs')({title: 'bouga'}) %>
+
+<h1>Hello, world!</h1>
+<% for(let i=0; i<5; i++){ %>
+<a href="/contact.html" class="btn btn-dark text-center">bouton</a>
+<% }%>
+<div class="row text-center mt-5">
+    <div class="col-12 d-flex justify-content-center">
+        <%= require('./partials/card.ejs')() %>
+    </div>
+</div>
+
+<%= require('./partials/footer.ejs')() %>
